@@ -1,4 +1,15 @@
+import { data } from 'autoprefixer'
 import { comments } from '../../../data/comments'
 export default function handler(req, res) {
-    res.status(200).json(comments)
+    if (req.method === 'GET')
+        res.status(200).json(comments)
+    else {
+        const comment = req.body.comment
+        const newComment = {
+            id: Date.now(),
+            comment: comment
+        }
+        comments.push(newComment)
+        res.status(201).json(newComment)
+    }
 }
